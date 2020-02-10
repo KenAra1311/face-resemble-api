@@ -17,6 +17,9 @@ class V1::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
 
+    # Cloudinary に保存している画像も削除する
+    Cloudinary::Api.delete_resources([post.file_name])
+
     if post.destroy
       render json: post
     end
@@ -24,6 +27,6 @@ class V1::PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:title, :content, :image, :user_id)
+      params.require(:post).permit(:title, :content, :image, :file_name, :user_id)
     end
 end

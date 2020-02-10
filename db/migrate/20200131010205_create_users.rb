@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :uid
       t.boolean :admin
       t.string :profile_image
+      t.string :file_name
 
       t.timestamps
     end
