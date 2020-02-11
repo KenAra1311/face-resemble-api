@@ -1,7 +1,12 @@
 class V1::PostsController < ApplicationController
   def index
-    @posts = Post.all.order(created_at: "DESC", id: "ASC")
-    render json: @posts
+    if params[:id]
+      @posts = Post.find(params[:id]).order(created_at: "DESC", id: "ASC")
+      render json: @posts
+    else
+      @posts = Post.all.order(created_at: "DESC", id: "ASC")
+      render json: @posts
+    end
   end
 
   def create
