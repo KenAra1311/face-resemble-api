@@ -21,7 +21,7 @@ class Post < ApplicationRecord
 
       # Request headers
       request['Ocp-Apim-Subscription-Key'] = ENV['FACE_API_KEY']
-      request['Content-Type'] = 'application/json'
+      request['Content-Type']              = 'application/json'
 
       imageUri = image
       request.body = "{\"url\": \"" + imageUri + "\"}"
@@ -30,7 +30,12 @@ class Post < ApplicationRecord
         http.request(request)
       end
 
-      face    = JSON.parse(response.body)
+      face = JSON.parse(response.body)
+
+      if face.length == 0
+        return nil
+      end
+
       emotion = face[0]['faceAttributes']['emotion'].max { |x, y| x[1] <=> y[1] }
 
       return emotion[0]
