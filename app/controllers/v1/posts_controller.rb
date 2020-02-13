@@ -10,7 +10,10 @@ class V1::PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
+    post    = Post.new(post_params)
+    emotion = Post.face_detect(params[:post][:image])
+    # 感情の最大値を格納
+    post[:emotion] = emotion
 
     if post.save
       render json: post, status: :created
@@ -32,6 +35,6 @@ class V1::PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:title, :content, :image, :file_name, :user_id)
+      params.require(:post).permit(:title, :content, :image, :file_name, :emotion, :user_id)
     end
 end
