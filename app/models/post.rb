@@ -3,6 +3,7 @@ require 'json'
 
 class Post < ApplicationRecord
   belongs_to :user
+  has_many :likes
 
   class << self
     def face_detect (image)
