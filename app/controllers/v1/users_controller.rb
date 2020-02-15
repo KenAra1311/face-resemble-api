@@ -22,6 +22,10 @@ class V1::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
+    if params[:profile_image] == nil || params[:file_name] == nil
+      Cloudinary::Api.delete_resources([@user.file_name]) if @user.file_name
+    end
+
     if @user.update(user_params)
       render json: @user, status: :ok
     else

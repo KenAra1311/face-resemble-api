@@ -7,9 +7,7 @@ class UserSerializer < ActiveModel::Serializer
   def like_total_count
     i = 0
     object.posts.each do |post|
-      if post.count != nil
-        i += post.count
-      end
+      i += post.count if post.count
     end
 
     return i
