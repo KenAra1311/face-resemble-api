@@ -33,6 +33,18 @@ class V1::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    user = User.find(params[:id])
+
+    if user.file_name
+      Cloudinary::Api.delete_resources([user.file_name])
+    end
+
+    if user.destroy
+      render json: user
+    end
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :uid, :admin, :profile_image, :file_name)
