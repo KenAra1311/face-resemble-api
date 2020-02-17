@@ -2,7 +2,7 @@ class V1::UsersController < ApplicationController
   def index
     case
     when params[:id]
-      @user = User.find_by(id: params[:id])
+      @user = User.where(id: params[:id]).includes(:posts).order("posts.created_at DESC")
       render json: @user
     when params[:uid]
       @user = User.find_by(uid: params[:uid])
