@@ -25,6 +25,17 @@ describe "UserAPI", type: :request do
     # 要求した特定の user のみ取得したか確認
     expect(json[0]['name']).to eq(user.name)
   end
+  it "user を uid で絞り、1つだけ取得する" do
+    user = User.create(name: "test", email: "test@example.com", uid: "testuid")
+
+    get "/v1/users?uid=#{user.uid}"
+    json = JSON.parse(response.body)
+
+    # リクエスト成功を表す200が返ってきたか確認
+    expect(response.status).to eq(200)
+    # 要求した特定の user のみ取得したか確認
+    expect(json['name']).to eq(user.name)
+  end
   it "user を作成する" do
     valid_params = { name: "test", email: "test@example.com", uid: "testuid" }
 
@@ -43,6 +54,19 @@ describe "UserAPI", type: :request do
     expect(response.status).to eq(200)
     # データ（ユーザ名）が更新されている事を確認
     expect(json['name']).to eq('new-test')
+  end
+  # 以下のテストは cloudinary API に接続するため、少し処理が重いです
+  it 'user のプロフィール画像が登録されてある場合、プロフィール画像の削除を行う' do
+    user = User.create(name: "test", email: "test@example.com", uid: "testuid", profile_image: "cloudinary/test.jpg", file_name: "test.jpg")
+
+    put "/v1/users/#{user.id}", params: { user: { profile_image: nil, file_name: nil } }
+    json = JSON.parse(response.body)
+
+    # リクエスト成功を表す200が返ってきたか確認
+    expect(response.status).to eq(200)
+    # プロフィール画像関連のデータが削除されている事を確認
+    expect(json['profile_image']).to eq(nil)
+    expect(json['file_name']).to eq(nil)
   end
   it 'user を削除する' do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
