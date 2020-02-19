@@ -28,6 +28,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'sqlite3', '~> 1.4'
   gem 'rspec-rails', '~> 3.9.0'
+  gem 'factory_bot_rails', '~> 4.11'
 end
 
 group :development do
