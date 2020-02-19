@@ -5,6 +5,10 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
 
+  validates :title,   presence: true, length: { maximum: 32 }
+  validates :image,   presence: true, uniqueness: true
+  validates :content, length: { maximum: 255 }
+
   class << self
     def face_detect (image)
       uri = URI('https://face-resemble.cognitiveservices.azure.com/face/v1.0/detect')
