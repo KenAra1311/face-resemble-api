@@ -1,12 +1,7 @@
 class V1::LikesController < ApplicationController
   def index
-    if params[:post_id]
-      @likes = Like.where(post_id: params[:post_id])
-      render json: @likes
-    else
-      @likes = Like.all
-      render json: @likes
-    end
+    @likes = Like.all
+    render json: @likes
   end
 
   def create

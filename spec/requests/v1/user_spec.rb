@@ -39,7 +39,7 @@ describe "UserAPI", type: :request do
   it "user を作成する" do
     valid_params = { name: "test", email: "test@example.com", uid: "testuid" }
 
-    #データが作成されている事を確認
+    # データが作成されている事を確認
     expect{ post "/v1/users", params: { user: valid_params } }.to change{ User.count }.by(+1)
     # リクエスト成功を表す201が返ってきたか確認
     expect(response.status).to eq(201)

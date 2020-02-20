@@ -1,6 +1,9 @@
 class V1::PostsController < ApplicationController
   def index
     case
+    when params[:id]
+      @posts = Post.where(user_id: params[:id]).order(created_at: "DESC", id: "ASC")
+      render json: @posts
     when params[:user_id]
       @posts = Post.where(user_id: params[:user_id]).order(created_at: "DESC", id: "ASC")
       render json: @posts

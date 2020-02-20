@@ -31,7 +31,7 @@ describe "PostAPI", type: :request do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
     valid_params = { title: "テスト", image: "https://res.cloudinary.com/hpcbhm1bd/image/upload/v1581986740/profile_images/Kingdom_Hearts_In_High_Definition_eqek0r.jpg", user_id: user.id }
 
-    #データが作成されている事を確認
+    # データが作成されている事を確認
     expect{ post "/v1/posts", params: { post: valid_params } }.to change{ Post.count }.by(+1)
     # リクエスト成功を表す201が返ってきたか確認
     expect(response.status).to eq(201)
