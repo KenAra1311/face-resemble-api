@@ -14,6 +14,7 @@ describe "UserAPI", type: :request do
     # 正しい数の user が返されたか確認
     expect(json[0].length).to eq(10)
   end
+  
   it "user を id で絞り、1つだけ取得する" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
 
@@ -25,6 +26,7 @@ describe "UserAPI", type: :request do
     # 要求した特定の user のみ取得したか確認
     expect(json[0]['name']).to eq(user.name)
   end
+
   it "user を uid で絞り、1つだけ取得する" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
 
@@ -36,6 +38,7 @@ describe "UserAPI", type: :request do
     # 要求した特定の user のみ取得したか確認
     expect(json['name']).to eq(user.name)
   end
+
   it "user を作成する" do
     valid_params = { name: "test", email: "test@example.com", uid: "testuid" }
 
@@ -44,6 +47,7 @@ describe "UserAPI", type: :request do
     # リクエスト成功を表す201が返ってきたか確認
     expect(response.status).to eq(201)
   end
+
   it 'user の編集を行う' do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
 
@@ -55,6 +59,7 @@ describe "UserAPI", type: :request do
     # データ（ユーザ名）が更新されている事を確認
     expect(json['name']).to eq('new-test')
   end
+
   # 以下のテストは cloudinary API に接続するため、少し処理が重いです
   it 'user のプロフィール画像が登録されてある場合、プロフィール画像の削除を行う' do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid", profile_image: "cloudinary/test.jpg", file_name: "test.jpg")
@@ -68,6 +73,7 @@ describe "UserAPI", type: :request do
     expect(json['profile_image']).to eq(nil)
     expect(json['file_name']).to eq(nil)
   end
+
   it 'user を削除する' do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
 

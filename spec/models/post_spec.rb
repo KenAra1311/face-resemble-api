@@ -10,6 +10,7 @@ RSpec.describe Post, type: :model do
     )
     expect(post.save).to be_truthy
   end
+  
   it "タイトルがない場合、無効である" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
     # ユーザが投稿したとする
@@ -19,6 +20,7 @@ RSpec.describe Post, type: :model do
     )
     expect(post.save).to be_falsey
   end
+
   it "画像がない場合、無効である" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
     # ユーザが投稿したとする
@@ -28,6 +30,7 @@ RSpec.describe Post, type: :model do
     )
     expect(post.save).to be_falsey
   end
+
   it "画像が重複している場合、無効である" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
     # ユーザが投稿したとする
@@ -41,6 +44,7 @@ RSpec.describe Post, type: :model do
     )
     expect(post_b.save).to be_falsey
   end
+
   it "タイトルが32文字以上の場合、無効である" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
     # ユーザが投稿したとする
@@ -50,6 +54,7 @@ RSpec.describe Post, type: :model do
     )
     expect(post.save).to be_falsey
   end
+
   it "コンテンツが255文字以上の場合、無効である" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
     # ユーザが投稿したとする
@@ -60,6 +65,7 @@ RSpec.describe Post, type: :model do
     )
     expect(post.save).to be_falsey
   end
+
   it "投稿を削除すると、その投稿のいいねも削除されること" do
     user_a = User.create(name: "test_a", email: "test1@example.com", uid: "testuid")
     user_b = User.create(name: "test_b", email: "test2@example.com", uid: "testuid")

@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_truthy
   end
+
   it "ユーザ名がない場合、無効である" do
     user = User.new(
       name: nil,
@@ -17,6 +18,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "メアドがない場合、無効である" do
     user = User.new(
       name: "test",
@@ -25,6 +27,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "パスワード（uid）がない場合、無効である" do
     user = User.new(
       name: "test",
@@ -33,6 +36,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "ユーザ名が16文字以上の場合、無効である" do
     user = User.new(
       name: "test_test_test_test",
@@ -41,6 +45,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "メールアドレスが32文字以上の場合、無効である" do
     user = User.new(
       name: "test",
@@ -49,6 +54,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "メールアドレスが重複している場合、無効である" do
     user_a = User.new(
       name: "test_a",
@@ -63,6 +69,7 @@ RSpec.describe User, type: :model do
     )
     expect(user_b.save).to be_falsey
   end
+  
   it "メールアドレスがフォーマット通りではない場合、無効である" do
     user = User.new(
       name: "test",
@@ -71,6 +78,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "パスワードが6文字以下の場合、無効である" do
     user = User.new(
       name: "test",
@@ -79,6 +87,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "パスワードが32文字以上の場合、無効である" do
     user = User.new(
       name: "test",
@@ -87,6 +96,7 @@ RSpec.describe User, type: :model do
     )
     expect(user.save).to be_falsey
   end
+
   it "ユーザを削除すると、そのユーザの投稿も削除されること" do
     user = User.create(name: "test", email: "test@example.com", uid: "testuid")
     # ユーザが投稿したとする
@@ -94,6 +104,7 @@ RSpec.describe User, type: :model do
 
     expect{ user.destroy }.to change{ Post.count }.by(-1)
   end
+
   it "ユーザを削除すると、そのユーザのいいねも削除されること" do
     user_a = User.create(name: "test_a", email: "test1@example.com", uid: "testuid")
     user_b = User.create(name: "test_b", email: "test2@example.com", uid: "testuid")

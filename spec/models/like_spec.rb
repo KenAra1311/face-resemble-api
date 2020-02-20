@@ -11,6 +11,7 @@ RSpec.describe Like, type: :model do
 
     expect(like.save).to be_truthy
   end
+  
   it "別のユーザの投稿に対して2回以上いいねをした場合、無効である" do
     user_a = User.create(name: "test_a", email: "test1@example.com", uid: "testuid")
     user_b = User.create(name: "test_b", email: "test2@example.com", uid: "testuid")
