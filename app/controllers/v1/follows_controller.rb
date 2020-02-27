@@ -1,6 +1,9 @@
 class V1::FollowsController < ApplicationController
   def index
     case
+    when params[:user_id]
+      @follows = Follow.where(user_id: params[:user_id]).order(created_at: "DESC", id: "ASC")
+      render json: @follows
     when params[:follow_id]
       @follows = Follow.where(follow_id: params[:follow_id]).order(created_at: "DESC", id: "ASC")
       render json: @follows
