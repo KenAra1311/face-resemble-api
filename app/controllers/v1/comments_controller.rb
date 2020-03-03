@@ -1,7 +1,13 @@
 class V1::CommentsController < ApplicationController
   def index
-    @comment = Comment.all
-    render json: @comment
+    case
+    when params[:post_id]
+      @comment = Comment.where(post_id: params[:post_id]).order(created_at: "DESC", id: "ASC")
+      render json: @comment
+    else
+      @comment = Comment.all
+      render json: @comment
+    end
   end
 
   def create
