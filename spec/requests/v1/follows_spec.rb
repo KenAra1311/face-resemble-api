@@ -1,4 +1,4 @@
 require "rails_helper"
 
-describe "LikeAPI", type: :request do
+describe "followAPI", type: :request do
 end
