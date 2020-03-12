@@ -14,10 +14,13 @@ class V1::PostsController < ApplicationController
   end
 
   def create
-    post    = Post.new(post_params)
-    emotion = Post.face_detect(params[:post][:image])
+    post = Post.new(post_params)
+
+    # ----- Face API の無料期間が過ぎたので、一時感情を取得する機能を停止 -----
     # 感情の最大値を格納
-    post[:emotion] = emotion
+    # emotion = Post.face_detect(params[:post][:image])
+    # post[:emotion] = emotion
+    # ----- Face API の無料期間が過ぎたので、一時感情を取得する機能を停止 -----
 
     if post.save
       render json: post, status: :created
